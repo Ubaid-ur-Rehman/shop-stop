@@ -1,26 +1,6 @@
-import './HomePage.css'
-import Header from '../Components/Header';
-// import {products} from '../../Starter/data/products.js';
-import { useEffect, useState } from 'react';
-export default function HomePage({cart}:any) {
-    const [products,setProducts] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost:3000/api/products')
-        .then(response => response.json())
-        .then(data => {
-            // Update the products state with the fetched data
-            setProducts(data);
-        });
-        
-    },[]);
-    return (
-        <>
-        <Header />  
-    <div className="home-page">
-      <div className="products-grid">
-        {products.map((product:any) => {
-            return (
-        <div key={product.id} className="product-container">
+export default function Products({product}) {
+  return (
+    <div key={product.id} className="product-container">
           <div className="product-image-container">
             <img className="product-image"
               src={product.image} />
@@ -68,10 +48,5 @@ export default function HomePage({cart}:any) {
             Add to Cart
           </button>
         </div>
-            )
-        })}
-      </div>
-    </div>
-    </>
-    )
-};
+  );
+}
