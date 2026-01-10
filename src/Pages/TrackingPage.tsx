@@ -1,6 +1,6 @@
-import './tracking.css';
 import { Link } from 'react-router';
 import Header from '../Components/Header';
+import './TrackingPage.css';
 
 export default function TrackingPage() {
   return (

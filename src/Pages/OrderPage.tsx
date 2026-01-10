@@ -1,9 +1,9 @@
-import './orders.css';
 import { Link } from 'react-router';
 import Header from '../Components/Header';
 import { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import './OrdersPage.css';
 
 export default function OrderPage({cart}:any) {
     let [orders,setOrders] = useState<any[]>([]);
