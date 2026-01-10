@@ -3,6 +3,7 @@ import './checkout-header.css';
 import { Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 export default function CheckoutPage({cart}:any) {
       let [deliveryOptions,setDeliveryOptions] = useState([]);
@@ -47,7 +48,70 @@ export default function CheckoutPage({cart}:any) {
       <div className="page-title">Review your order</div>
 
       <div className="checkout-grid">
-       
+        <div className="order-summary">
+       {cart.map((cartItem:any) => {
+        return (
+          <div className="cart-item-container">
+            <div className="delivery-date">
+              Delivery date: Tuesday, June 21
+            </div>
+
+            <div className="cart-item-details-grid">
+              <img className="product-image"
+                src="images/products/athletic-cotton-socks-6-pairs.jpg" />
+
+              <div className="cart-item-details">
+                <div className="product-name">
+                  {cartItem.product.name}
+                </div>
+                <div className="product-price">
+                  ${cartItem.product.priceCents / 100}
+                </div>
+                <div className="product-quantity">
+                  <span>
+                    Quantity: <span className="quantity-label">{cartItem.quantity}</span>
+                  </span>
+                  <span className="update-quantity-link link-primary">
+                    Update
+                  </span>
+                  <span className="delete-quantity-link link-primary">
+                    Delete
+                  </span>
+                </div>
+              </div>
+
+              <div className="delivery-options">
+                <div className="delivery-options-title">
+                  Choose a delivery option:
+                </div>
+                {deliveryOptions.map((option:any) => {
+                      console.log(option.id == cartItem.id);
+                  let shipping = 'FREE Shipping';
+                  if(option.priceCents > 0){
+                    shipping = `$${(option.priceCents / 100).toFixed(2)} - Shipping`;
+                  }
+                  return(
+                <div className="delivery-option">
+                  <input type="radio" checked={option.id == cartItem.id}
+                    className="delivery-option-input"
+                    name={`delivery-option-${option.id}`} />
+                  <div>
+                    <div className="delivery-option-date">
+                      {dayjs(option.estimatedDeliveryTimeMs).format('DD, MMMM YY')}
+                    </div>
+                    <div className="delivery-option-price">
+                      {shipping}
+                    </div>
+                  </div>
+                </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )
+       })}
+        </div>
 
         <div className="payment-summary">
             <div className="payment-summary-title">
