@@ -1,4 +1,3 @@
-import React from 'react';
 import './tracking.css';
 import { Link } from 'react-router';
 import Header from '../Components/Header';
