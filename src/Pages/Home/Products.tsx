@@ -1,6 +1,25 @@
-export default function Products({product}) {
+import axios from "axios";
+import { useState } from "react";
+import { Link } from "react-router";
+
+export default function Products({product,fetchCartItems}:any) {
+    const [quantity,setQuantity] =  useState(1);
+    function changeQuantity(event:any)  {
+        event.preventDefault();
+        event.stopPropagation();
+        setQuantity(event.target.value);
+    }
+    async function addToCart(event:any) {
+        event.preventDefault();
+      await axios.post('/api/cart-items', {
+        productId: product.id,
+        quantity: Number(quantity)
+      })
+      await fetchCartItems();
+    }
   return (
-    <div key={product.id} className="product-container">
+
+    <Link key={product.id} className="product-container" to={'/product/' + product.id}>
           <div className="product-image-container">
             <img className="product-image"
               src={product.image} />
@@ -22,7 +41,7 @@ export default function Products({product}) {
             ${(product.priceCents / 100).toFixed(2)}
           </div>
 
-          <div className="product-quantity-container">
+          <div className="product-quantity-container" onClick={changeQuantity}>
             <select>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -44,9 +63,9 @@ export default function Products({product}) {
             Added
           </div>
 
-          <button className="add-to-cart-button button-primary">
+          <button className="add-to-cart-button button-primary" onClick={addToCart}>
             Add to Cart
           </button>
-        </div>
+        </Link>
   );
 }

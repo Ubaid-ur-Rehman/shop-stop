@@ -19,7 +19,7 @@ export default function OrderPage({cart}:any) {
     });
   return (
     <div>
-      <Header />
+      <Header cart={cart} />
 
     <div className="orders-page">
       <div className="page-title">Your Orders</div>
