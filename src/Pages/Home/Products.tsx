@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router";
+import './products.css';
 
 export default function Products({product,fetchCartItems}:any) {
     const [quantity,setQuantity] =  useState(1);

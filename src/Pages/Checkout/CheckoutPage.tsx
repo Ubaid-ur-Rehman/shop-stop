@@ -6,7 +6,7 @@ import axios from 'axios';
 import PaymentSummary from './PaymentSummary';
 import OrderSummary from './OrderSummary';
 
-export default function CheckoutPage({cart}:any) {
+export default function CheckoutPage({cart  , fetchCartItems}:any) {
       let [deliveryOptions,setDeliveryOptions] = useState([]);
       let [paymentSummary,setPaymentSummary] = useState({}) as any;
    useEffect(() => {
@@ -18,7 +18,7 @@ export default function CheckoutPage({cart}:any) {
     .then((response) => {
         setPaymentSummary(response.data);
     })
-      },[]);
+      },[cart]);
      let count = 0;
     cart.forEach((cartItem:any) => {
         count += cartItem.quantity;
@@ -49,7 +49,7 @@ export default function CheckoutPage({cart}:any) {
       <div className="page-title">Review your order</div>
 
       <div className="checkout-grid">
-       <OrderSummary cart={cart} deliveryOptions={deliveryOptions} />
+       <OrderSummary cart={cart} deliveryOptions={deliveryOptions} fetchCartItems={fetchCartItems} />
 
        <PaymentSummary paymentSummary={paymentSummary} />
       </div>
